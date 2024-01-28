@@ -176,7 +176,7 @@
     <!-- Create Product button -->
     
     <div class="navbar">
-        <a href="#editProfile">Edit Profile</a>
+        <a href="EditProfile.jsp">Edit Profile</a>
        <a href="ShowOrdersServlet">Orders</a>
 
         <a href="#complaints">Complaints</a>

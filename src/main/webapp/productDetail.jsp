@@ -4,13 +4,36 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Connection" %>
+<%@ page import="java.util.UUID" %>
+<%@ page import="java.util.Random" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+
 
 <%
-// Get the product ID from the request parameter
-int productId = Integer.parseInt(request.getParameter("id"));
 
+// Get the product ID from the request parameter
+
+int productId = Integer.parseInt(request.getParameter("id"));
+Integer userId = (Integer) session.getAttribute("UserID");
+System.out.println(userId);
 Connection connection = null;
-int quan = 1;
+int quan = 4;
+UUID uuid = UUID.randomUUID();
+
+long timestamp = System.currentTimeMillis();
+
+// Format timestamp as yyyyMMddHHmmss
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+String formattedTimestamp = dateFormat.format(new Date(timestamp));
+
+// Generate a random 2-digit number
+Random random = new Random();
+int randomValue = random.nextInt(90) + 10;
+String x = formattedTimestamp + randomValue;
+/* String y = x.substring(0, 6);
+String result  =  x;
+System.out.println(result); */
 
 try {
     // Fetch the product details from the database
@@ -23,6 +46,8 @@ try {
 
     ProductDAO productDAO = new ProductDAO(connection);
     Product product = productDAO.getProductById(productId);
+    
+    
 
     // Check if the product exists
     if (product != null) {
@@ -41,37 +66,47 @@ try {
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
     var quantity = <%= quan %>;
+    var price = <%= product.getPrice() %>;
 
     document.addEventListener("DOMContentLoaded", function() {
         // Initial quantity value
-
-        // Elements
         var quantityElement = document.getElementById("quantity");
-        var minusButton = document.getElementById("minus");
-        var plusButton = document.getElementById("plus");
+        var o = document.getElementById("xxx");
+        var title = document.getElementById("title");
+        var amount = document.getElementById("amount");
+        
+        
+        var quantity = 1; // Set initial quantity value
+        
+
+        // Update quantity function
+        function updateQuantity() {
+        	document.getElementById("title").value = quantity
+            quantityElement.innerText = quantity;
+        	document.getElementById("amount").value = quantity * price;
+        	
+        	
+          <%--   "<%= request.getContextPath() %>/OrderServlet?productId=<%= product.getId() %>&quantity=" + quan; --%>
+          
+        }
 
         // Event listeners
-        minusButton.addEventListener("click", function() {
+        document.getElementById("minus").addEventListener("click", function() {
             if (quantity > 1) {
                 quantity--;
                 updateQuantity();
             }
         });
 
-        plusButton.addEventListener("click", function() {
+        document.getElementById("plus").addEventListener("click", function() {
             quantity++;
             updateQuantity();
         });
 
-        // Function to update quantity in the UI
-        function updateQuantity() {
-            quantityElement.innerText = quantity;
-            // Remove 'int' from the following line to update the global variable
-            quan = quantity;
-            orderButton.href = "<%= request.getContextPath() %>/OrderServlet?productId=<%= product.getId() %>&quantity=" + quan;
-        }
+        // Initial update
+        updateQuantity();
     });
-</script>
+    </script>
 </head>
 <body>
     <div style="text-align: center; margin: 20px;">
@@ -85,7 +120,7 @@ try {
             <button id="minus" style="background-color: #3498db; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s;">
                 <i class="fas fa-minus"></i>
             </button>
-            <span id="quantity" style="margin: 0 10px; font-size: 1.2em;"><%= quan %></span> <!-- You can dynamically set the quantity here -->
+            <span id="quantity" style="margin: 0 10px; font-size: 1.2em;"><%= quan %> s</span> <!-- You can dynamically set the quantity here -->
             <button id="plus" style="background-color: #4caf50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s;">
                 <i class="fas fa-plus"></i>
             </button>
@@ -96,12 +131,37 @@ try {
             <i class="fas fa-cart-plus"></i> Add to Cart
         </button>
 
-        <a id="orderButton" href="<%= request.getContextPath() %>/OrderServlet?productId=<%= product.getId() %>&quantity=<%= quan %>" style="text-decoration: none; color: inherit;">
+        <!-- <a id="orderButton" href="PaymentServlet" style="text-decoration: none; color: inherit;">
             <button style="background-color: #3498db; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s;">
                 <i class="fas fa-shopping-bag"></i> Order
             </button>
-        </a>
+        </a> -->
+        <a>
+        <form method="POST" action="PaymentServlet">
+            <!-- Your other payment form fields -->
+            <input type="hidden" name="public_key" value="CHAPUBK_TEST-JXbHnk3UEBr5nxaP2u4M6OHlXUFsN4s6" />
+            <input type="hidden" name="tx_ref" value="<%= x %>" />
+            <input id = "amount" type="hidden" name="amount" value="<%=  quan%> " />
+            <input type="hidden" name="currency" value="ETB" />
+            <input type="hidden" name="email" value="<%= (String) session.getAttribute("email")  %>" />
+            <input type="hidden" name="first_name" value="<%= (String) session.getAttribute("username") %>" />
+            <input type="hidden" name="last_name" value="<%=product.getId()%>" />
+            <input id= "title" type="hidden" name="title" value="1" />
+            <input type="hidden" name="description" value="<%=userId %>" />
+            <input type="hidden" name="logo" value="https://chapa.link/asset/images/chapa_swirl.svg" />
+            <input type="hidden" name="return_url" value="http://localhost:8080/Online-Shoping/index.jsp" />
+            <input type="hidden" name="meta[title]" value="test" />
+            
+      
+<%--             <input type="hidden" id="productId" name="productId" value="<%= quan %>" /><!--  -->
+ --%>            <!-- Add other necessary hidden fields -->
 
+            <!-- Add the callback URL -->
+            <input  id="xxx" type="hidden" name="callback_url" value="http://localhost:8080/Online-Shoping/ChapaCallbackServlet?tx_ref=<%=  x%>" />
+            
+            <button type="submit"><i class="fas fa-shopping-bag"></i> Order</button>
+        </form>
+        
     </div>
 </body>
 </html>

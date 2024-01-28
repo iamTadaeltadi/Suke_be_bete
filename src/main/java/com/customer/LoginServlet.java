@@ -17,6 +17,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,6 +40,10 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	Cookie myCookie = new Cookie("myCookieName", "cookieValue");
+    	myCookie.setSecure(true); // Set the Secure attribute
+    	response.addCookie(myCookie);
         String email = request.getParameter("username");
         String password = request.getParameter("password");
         RequestDispatcher dispatcher = null;
@@ -66,6 +71,7 @@ public class LoginServlet extends HttpServlet {
                             int UserID = Integer.parseInt(rs.getString("UserID"));
                             session.setAttribute("username", name);
                             session.setAttribute("UserID", UserID);
+                            session.setAttribute("email", email);
                             
                             request.setAttribute("status", "success");
 

@@ -158,7 +158,7 @@
                             <td><%= order.getQuantity() %></td>
                             <td><%= product.getPrice() * order.getQuantity() %></td>
                             <td>
-                   <a class="edit-btn" href="EditOrderServlet?orderId=<%= order.getOrderId() %>">
+                   <a class="edit-btn"  href="productDetail.jsp?id=<%= order.getProductId() %>">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                                 <a class="delete-btn" href="<%= request.getContextPath() %>/DeleteOrderServlet?orderId=<%= order.getOrderId() %>">

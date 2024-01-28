@@ -63,6 +63,7 @@ public class OrderServlet extends HttpServlet {
         if (orderExists(userId, productId)) {
         	 int orderId = getOrderId(userId, productId);
              session.setAttribute("orderId", orderId);
+             session.setAttribute("quantity", quantity);
         	
             // Set confirmation message as a request attribute
             request.setAttribute("confirmMessage", "Order already exists for the specified user and product. Do you want to update it?");
@@ -72,6 +73,7 @@ public class OrderServlet extends HttpServlet {
 
              // Set orderId in the session
              session.setAttribute("orderId", orderId);
+//             session.setAttribute("orderId", orderId);
 
             session.setAttribute("orderSent", true);
 

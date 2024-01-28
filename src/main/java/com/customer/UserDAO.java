@@ -41,6 +41,19 @@ public class UserDAO {
         }
         return userList;
     }
+    public boolean updateUser(int userId, String username, String email, String address, String phoneNumber) throws SQLException {
+        String query = "UPDATE users SET username = ?, email = ?, address = ?, phoneNumber = ? WHERE userID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, address);
+            statement.setString(4, phoneNumber);
+            statement.setInt(5, userId);
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 
     // Method to insert a new user (Implement based on your needs)
 

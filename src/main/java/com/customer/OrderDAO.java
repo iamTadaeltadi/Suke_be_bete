@@ -14,7 +14,6 @@ public class OrderDAO {
     public OrderDAO(Connection connection) {
         this.connection = connection;
     }
-
     // Get an OrderDTO by its ID
     public Order getOrderDTOById(int orderId) {
         Order orderDTO = null;
@@ -27,7 +26,7 @@ public class OrderDAO {
                     if (resultSet.next()) {
                         orderDTO = new Order();
                         orderDTO.setOrderId(resultSet.getInt("order_id"));
-                        orderDTO.setUserId(resultSet.getInt("user_id"));
+                        orderDTO.setUserId(resultSet.getInt("UserID"));
                         orderDTO.setProductId(resultSet.getInt("product_id"));
                         orderDTO.setQuantity(resultSet.getInt("quantity"));
                         // Set other order details as needed
@@ -74,7 +73,7 @@ public class OrderDAO {
     // Update/Edit an OrderDTO
     public boolean updateOrderDTO(Order orderDTO) {
         try {
-            String query = "UPDATE orders SET user_id=?, product_id=?, quantity=? WHERE order_id=?";
+            String query = "UPDATE orders SET UserId=?, product_id=?, quantity=? WHERE order_id=?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.setInt(1, orderDTO.getUserId());
                 preparedStatement.setInt(2, orderDTO.getProductId());
@@ -112,7 +111,7 @@ public class OrderDAO {
     // Create a new OrderDTO
     public boolean createOrderDTO(Order orderDTO) {
         try {
-            String query = "INSERT INTO orders (user_id, product_id, quantity) VALUES (?, ?, ?)";
+            String query = "INSERT INTO orders (UserId, product_id, quantity) VALUES (?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.setInt(1, orderDTO.getUserId());
                 preparedStatement.setInt(2, orderDTO.getProductId());
@@ -141,24 +140,4 @@ public class OrderDAO {
         }
     }
 }
-
-CREATE TABLE messages (     message_id INT PRIMARY KEY AUTO_INCREMENT,     UserId INT,     message TEXT NOT NULL,     message_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,     FOREIGN KEY (UserID) REFERENCES users(UserID) );
-id (INT, Primary Key), name (VARCHAR), age (INT), gender (VARCHAR), email (VARCHAR), phone (VARCHAR)
-
-
-
-CREATE TABLE Patients(id INT Primary Key, name VARCHAR, age INT, gender VARCHAR, email VARCHAR, phone VARCHAR)
-
-
-CREATE TABLE Patients (
-		id INT Primary Key AUTO_INCREMENT,
-		name varchar(255),
-		age INT,
-		gender varchar(255),
-		email varchar(255),
-		phone varchar(255)
-	);
-
-
-
 

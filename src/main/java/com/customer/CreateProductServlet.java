@@ -62,8 +62,8 @@ public class CreateProductServlet extends HttpServlet {
             }
 
             // Save the file on the server
-            String serverFilePath = "/path/to/uploadedImages/" + filePart.getSubmittedFileName();
-            Files.copy(filePart.getInputStream(), Paths.get(serverFilePath), StandardCopyOption.REPLACE_EXISTING);
+            String serverFilePath = "/Online-Shoping/src/main/webapp/assets/uploadedImages/" + filePart.getSubmittedFileName();
+            Files.copy(filePart.getInputStream(), Paths.get(serverFilePath).toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
 
             // Use Cloudinary Java SDK to upload the file to Cloudinary
             Map<String, Object> uploadResult = CloudinaryConfig.cloudinary.uploader()

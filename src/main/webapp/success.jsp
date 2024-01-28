@@ -84,7 +84,7 @@
     <div class="modal-content">
         <p class="confirmation-message"></p>
         <button class="update-button" style="display: none;">
-    <a href="<%= request.getContextPath() %>/UpdateOrderServlet?orderId=<%= session.getAttribute("orderId") %>">Update</a>
+<a href="<%= request.getContextPath() %>/editOrder?orderId=<%= session.getAttribute("orderId") %>&quantity=<%= session.getAttribute("quantity") %>">Update</a>
 </button>
         
 
