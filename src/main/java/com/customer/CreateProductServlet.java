@@ -1,11 +1,7 @@
 package com.customer;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +21,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
-
 @WebServlet("/createProductServlet")
 @MultipartConfig
 public class CreateProductServlet extends HttpServlet {
     private static final HikariDataSource dataSource;
-//    private static final Cloudinary cloudinary;
 
     static {
         HikariConfig config = new HikariConfig();
@@ -40,9 +34,6 @@ public class CreateProductServlet extends HttpServlet {
         config.setMaximumPoolSize(10);  // Adjust the maximum pool size based on your requirements
 
         dataSource = new HikariDataSource(config);
-
-        // Cloudinary configuration
-        
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -61,13 +52,13 @@ public class CreateProductServlet extends HttpServlet {
                 throw new ServletException("Invalid product price format.", e);
             }
 
-            // Save the file on the server
-            String serverFilePath = "/Online-Shoping/src/main/webapp/assets/uploadedImages/" + filePart.getSubmittedFileName();
-            Files.copy(filePart.getInputStream(), Paths.get(serverFilePath).toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
+            // Convert the input stream to a byte array
+            byte[] fileContent = filePart.getInputStream().readAllBytes();
 
-            // Use Cloudinary Java SDK to upload the file to Cloudinary
+            // Use Cloudinary Java SDK to upload the file to Cloudinary directly from the byte array
             Map<String, Object> uploadResult = CloudinaryConfig.cloudinary.uploader()
-                    .upload(serverFilePath, ObjectUtils.emptyMap());
+                    .upload(fileContent, ObjectUtils.emptyMap());
+
             // Extract Cloudinary details
             String publicId = (String) uploadResult.get("public_id");
             String cloudinaryUrl = (String) uploadResult.get("url");
