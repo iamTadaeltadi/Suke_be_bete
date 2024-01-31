@@ -1,9 +1,9 @@
-Suke Be Bete - Online Shopping Project
-Introduction
+**Suke Be Bete **- Online Shopping Project
+**Introduction**
 Welcome to the Suke Be Bete project, an online shopping platform that connects buyers and sellers in a seamless shopping experience. This application is built using Java servlets and JSP for the server-side logic and presentation, and it incorporates the Chapa integrated payment system for secure and efficient transactions. Cloundary is used for image upload and retrieval, enhancing the visual appeal of the products.
 
-Features
-Admin Panel
+**Features**
+*Admin Panel*
 Product Management: Admin can post, edit, and delete products, ensuring an up-to-date product catalog.
 Complaints Management: Admin can view and address customer complaints, enhancing customer satisfaction.
 Order Tracking: Admin can monitor and manage orders, including the source location.
