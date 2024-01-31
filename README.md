@@ -1,32 +1,25 @@
-# Suke_be_bete
 
-##Suke Be Bete - Online Shopping Project
-#Introduction
-Welcome to the Suke Be Bete project, an online shopping platform that connects buyers and sellers in a seamless shopping experience. This application is built using Java servlets and JSP for the server-side logic and presentation, and it incorporates the Chapa integrated payment system for secure and efficient transactions. Cloundary is used for image upload and retrieval, enhancing the visual appeal of the products.
+Suke Be Bete - Online Shopping Project
+1. Project's Title
+Suke Be Bete - Online Shopping Platform
 
-##Features
-#Admin Panel
-Product Management: Admin can post, edit, and delete products, ensuring an up-to-date product catalog.
-Complaints Management: Admin can view and address customer complaints, enhancing customer satisfaction.
-Order Tracking: Admin can monitor and manage orders, including the source location.
-##Client Dashboard
-#Product Catalog: Users can browse through a variety of products with details and images.
-#Real Payment Integration: Secure transactions using the Chapa integrated payment system for real payments.
-#Complaints and Messages: Users can submit complaints or messages for assistance.
-#Profile Editing: Clients can edit their profiles for accurate and updated information.
-#Add to Cart Functionality: Users can add multiple products to their cart before completing the payment transaction.
-#Technologies Used
-##Java Servlets and JSP: For server-side logic and dynamic web page generation.
-##Chapa Integrated Payment System: Secure and efficient payment processing.
-##Cloundary: Image upload and retrieval for an enhanced visual experience.
-##Setup Instructions
+2. Project Description
+Suke Be Bete is an online shopping platform designed to provide a seamless experience for both administrators and clients. The project facilitates product management, secure payment transactions through the Chapa integrated payment system, and efficient image upload and retrieval using Cloundary. This README aims to guide developers, users, and potential contributors through the project's features, setup, and usage.
+
+3. Table of Contents
+How to Install and Run the Project
+How to Use the Project
+Include Credits
+4. How to Install and Run the Project
+To set up and run the Suke Be Bete project locally, follow these steps:
+
 Clone the repository: git clone https://github.com/yourusername/suke-be-bete.git
 Set up your Java development environment.
 Configure Chapa integrated payment system credentials.
 Configure Cloundary API keys for image upload and retrieval.
 Deploy the application on a Servlet container like Apache Tomcat.
-Dependencies
-Java 8 or later
-Apache Tomcat or any other Servlet container
-Chapa integrated payment system credentials
-Cloundary API keys
+5. How to Use the Project
+Start the Servlet container.
+Open the application in a web browser.
+Explore the product catalog, add products to the cart, and proceed to checkout.
+Admins can log in to access the admin panel for product and order management.
