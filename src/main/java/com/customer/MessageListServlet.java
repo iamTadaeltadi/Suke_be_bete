@@ -29,9 +29,6 @@ public class MessageListServlet extends HttpServlet {
         String jdbcUrl = "jdbc:mysql://localhost:3306/ONLINESHOP";
         String dbUser = "tada";
         String dbPassword = "tadael";
-        
-        
-        
 
         try {
             // Load the JDBC driver
@@ -40,7 +37,7 @@ public class MessageListServlet extends HttpServlet {
             // Establish a connection
             try (Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)) {
                 // Create a prepared statement
-                String sql = "SELECT * FROM messages";
+                String sql = "SELECT  message FROM messages";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                     // No parameters to set
 
@@ -48,17 +45,23 @@ public class MessageListServlet extends HttpServlet {
                     ResultSet resultSet = preparedStatement.executeQuery();
 
                     // Process the result set and store messages in a list
-                    List<String> messages = new ArrayList<>();
+                    List<Object[]> messages = new ArrayList<>();
                     while (resultSet.next()) {
-                        String message = resultSet.getString("message");
+                        String email =  "tadael@gmail.com";
+                        String messageText = resultSet.getString("message");
+                        
+                        
+                      
+
+                        Object[] message = {email, messageText};
                         messages.add(message);
                     }
 
                     // Store the list in the session
                     session.setAttribute("MessageList", messages);
-                    request.setAttribute("requestMessage", "The Complin Sent Sucessfully,Thanks");
-                    System.out.print("sahib");
-                    request.getRequestDispatcher("alert.jsp").forward(request, response);
+
+                    // Forward to the JSP page for displaying the list
+                    request.getRequestDispatcher("messageList.jsp").forward(request, response);
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -66,8 +69,5 @@ public class MessageListServlet extends HttpServlet {
             System.out.println(e.getMessage());
             // Handle the exception appropriately or show an error page
         }
-
-        // Redirect to the JSP page for displaying the list
-        response.sendRedirect("messageList.jsp");
     }
 }

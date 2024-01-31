@@ -248,6 +248,7 @@
     <!-- Navbar -->
     <div class="navbar">
         <div>
+        <a href="admin.jsp" class="navbar-link">Home</a>
             <a href="<%=request.getContextPath()%>/ShowOrdersServlet" class="navbar-link">Orders</a>
             <a href="<%=request.getContextPath()%>/MessageListServlet" class="navbar-link">Complaints</a>
             <a href="createProduct.jsp" class="navbar-link">Create Product</a>

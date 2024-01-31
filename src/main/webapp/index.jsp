@@ -148,7 +148,7 @@ if (products != null && !products.isEmpty()) {
         <div>
         <a href="index.jsp" class="navbar-link"><i class="fas fa-home"></i> Home</a>
             <a href="<%=request.getContextPath()%>/ListOrdersServlet" class="navbar-link">Orders</a>
-            <a href="<%=request.getContextPath()%>/MessageListServlet" class="navbar-link">Complaints</a>
+            
              <a class="navbar-link" href="contactUs.jsp"><i class="fas fa-phone"></i> Contact Us</a>
              <a  class="navbar-link" href ="AddToCart.jsp?id=<%=session.getAttribute("UserID")%>"><i class="fas fa-shopping-cart"></i>  </a>
         </div>
@@ -192,6 +192,7 @@ if (products != null && !products.isEmpty()) {
         color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; transition: background 0.3s;">
         <i class="fas fa-cart-plus"></i> Add to Cart
     </button>
+    </form>
 
     <!-- Order Button -->
     <button style="background: rgb(11, 9, 47);
@@ -210,10 +211,7 @@ if (products != null && !products.isEmpty()) {
 } else {
 	
 %>
-    <div style="text-align: center; margin: 20px;">
-        
-        <!-- Add any additional message or content for this case -->
-    </div>
+    
     
    <div class="navbar">
         <div>

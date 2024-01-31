@@ -78,6 +78,7 @@
         var status = document.getElementById("status").value;
         if (status === "success") {
             swal("Congrats, Account registered successfully");
+            window.location.href = "login.jsp";
         }
         else{
         	swal(document.getElementById('message').value);

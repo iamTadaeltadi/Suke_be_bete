@@ -61,13 +61,9 @@
             background-color: #f4f4f4;
         }
 
-       body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            
-        }
+         
+
+     
 
         h1 {
             text-align: center;
@@ -211,15 +207,16 @@
                         </button>
                     </div>
 
-                    <form method="post" action="AddToCartServlet">
+                    
+                    
+                     <form method="post" action="AddToCartServlet">
         <input type="hidden" name="productId" value="<%= product.getId() %>">
-        <input type="hidden" name="quantity" id="o" value="1">
-       <button  class="btn btn-success btn-block" type="submit" style="background: rgb(11, 9, 47);
-        background: linear-gradient(90deg, rgba(11, 9, 47, 1) 0%, rgba(55, 107, 62, 1) 100%, rgba(43, 33, 218, 1) 100%, rgba(10, 78, 92, 1) 100%, rgba(47, 159, 63, 1) 100%, rgba(97, 167, 99, 1) 100%, rgba(114, 198, 110, 1) 100%, rgba(255, 0, 0, 1) 100%);
-        color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; transition: background 0.3s;">
+        <input type="hidden" id="oo" name="quantity" value="1">
+       <button type="submit" class="btn btn-success btn-block">
         <i class="fas fa-cart-plus"></i> Add to Cart
     </button>
-                    
+    </form>
+
                         <form method="POST" action="PaymentServlet" class="mt-3">
                            <input type="hidden" name="public_key" value="CHAPUBK_TEST-JXbHnk3UEBr5nxaP2u4M6OHlXUFsN4s6" />
 				            <input type="hidden" name="tx_ref" value="<%= x %>" />
@@ -252,7 +249,7 @@
         var o = document.getElementById("xxx");
         var title = document.getElementById("title");
         var amount = document.getElementById("amount");
-        var quan = document.getElementById("o");
+        var min =  document.getElementById("oo");
         
         var totalPrice = document.getElementById("totalprice");
         
@@ -266,7 +263,7 @@
         	document.getElementById("title").value = quantity
             quantityElement.innerText = quantity;
         	document.getElementById("amount").value = quantity * price;
-        	document.getElementById("o").value = quan;
+        	min.value = quantity;
         	totalPrice.innerText  = <%= product.getPrice() %> *quantity;
         	
         	
